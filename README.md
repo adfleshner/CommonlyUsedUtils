@@ -7,15 +7,15 @@ This is only a java file that you can copy into your projects.
 
 
 //Contructor
-***Java
+```Java
 public CommonlyUsedUtils(FragmentActivity act) {
 	mActivity = act;
 	mPrefs = PreferenceManager.getDefaultSharedPreferences(mActivity);
 	editor = mPrefs.edit();
 }
-***
-
+```
 Methods:
+```java
 //SharedPreferences 
 
 public void setIntPref(int number)
@@ -55,3 +55,4 @@ public AlertDialog AlertMessage(int Drawable, int Title, int Message)
 //Date Formatting
 
 public String longDateString(Date date)
+```
