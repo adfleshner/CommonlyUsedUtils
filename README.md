@@ -7,11 +7,13 @@ This is only a java file that you can copy into your projects.
 
 
 //Contructor
+***Java
 public CommonlyUsedUtils(FragmentActivity act) {
-		mActivity = act;
-		mPrefs = PreferenceManager.getDefaultSharedPreferences(mActivity);
-		editor = mPrefs.edit();
+	mActivity = act;
+	mPrefs = PreferenceManager.getDefaultSharedPreferences(mActivity);
+	editor = mPrefs.edit();
 }
+***
 
 Methods:
 //SharedPreferences 
