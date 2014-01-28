@@ -247,13 +247,23 @@ public class CommonlyUsedUtils {
 	}
 
 	// Date Formatting >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-	public String longDateString(Date date) {
+	public String longDateStringStandardTime(Date date) {
 		String dateStr = "";
 		try {
 			String dateFormat = "MMM d, yyyy h:mm:ss a";
-			if (SettingsManager.getInstance().getUsing24HourClock()) {
-				dateFormat = "MMM d, yyyy HH:mm:ss";
-			}
+			SimpleDateFormat ft = new SimpleDateFormat(dateFormat, Locale.ENGLISH);
+			dateStr = ft.format(date);
+		} catch (NullPointerException e) {
+			dateStr = "";
+		}
+
+		return dateStr;
+	}
+	
+	public String longDateStringMilitaryTime(Date date) {
+		String dateStr = "";
+		try {
+			dateFormat = "MMM d, yyyy HH:mm:ss";
 			SimpleDateFormat ft = new SimpleDateFormat(dateFormat, Locale.ENGLISH);
 			dateStr = ft.format(date);
 		} catch (NullPointerException e) {
