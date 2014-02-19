@@ -1,4 +1,4 @@
-package edu.ua.caps.utils;
+package edu.ua.caps.commonlyusedutils.utils;
 
 /**
  * Copyright (c) 2012 The Board of Trustees of The University of Alabama
@@ -30,11 +30,9 @@ package edu.ua.caps.utils;
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Locale;
 
 import org.apache.http.protocol.HTTP;
@@ -61,22 +59,20 @@ import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import edu.ua.caps.safeschools.R;
-import edu.ua.caps.safeschools.objects.School;
+import edu.ua.caps.commonlyusedutils.R;
 
 public class CommonlyUsedUtils {
-	
+
 	private static final long PRESS_BACK_BUTTON_TWICE_TIMER = 2000;
 	private boolean doubleBackToExitPressedOnce = false;
 
-	private String dateFormat;
-	
 	private Context mContext;
 	private SharedPreferences mPrefs;
 	private SharedPreferences.Editor editor;
 	FragmentManager fragmentManager;
+	FragmentManager fragmentManager2;
+	
 
 	public CommonlyUsedUtils(Context cxt) {
 		mContext = cxt;
@@ -88,7 +84,6 @@ public class CommonlyUsedUtils {
 		} catch (ClassCastException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	// SharedPreferences >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -135,49 +130,6 @@ public class CommonlyUsedUtils {
 		} catch (NullPointerException e) {
 			return null;
 		}
-	}
-
-	public void SaveToFavorite(Object obj) {
-
-		HashMap<String, Object> objs = getFavorites();
-		int initialSize = obj.size();
-		objs.put(obj.getId(), obj);
-		String Jsonobj = new Gson().toJson(objs);
-		editor.putString("objs HashMap", Jsonobj);
-		editor.commit();
-		int afterCommit = objs.size();
-		if (initialSize != afterCommit) {
-			Toast.makeText(mContext, obj.getName() + " added to Favorites!",
-					Toast.LENGTH_SHORT).show();
-		}
-	}
-
-	public void insertBackInToFavorites(Object obj) {
-		HashMap<String, Object> objs = getFavorites();
-		schools.put(objs.getId(), obj);
-		String Jsonobjs = new Gson().toJson(objs);
-		editor.putString("objs HashMap", Jsonobjs);
-		editor.commit();
-	}
-
-	public void RemoveFromFavorite(Object obj) {
-		HashMap<String, Object> objs = getFavorites();
-		schools.remove(obj.getId());
-		String Jsonobjs = new Gson().toJson(objs);
-		editor.putString("objs HashMap", Jsonobjs);
-		editor.commit();
-	}
-
-	public HashMap<String, Object> getFavorites() {
-		HashMap<String, Object> objs = null;
-		Type schoolsType = new TypeToken<HashMap<String, Object>>() {
-		}.getType();
-		objs = new Gson().fromJson(mPrefs.getString("objs HashMap", ""),
-				schoolsType);
-		if (objs == null) {
-			objs = new HashMap<String, Object>();
-		}
-		return objs;
 	}
 
 	// ect....
@@ -275,12 +227,12 @@ public class CommonlyUsedUtils {
 	 * 
 	 * @param frag
 	 */
-	public void switchFragmentsWithStyle(Fragment frag) {
+	public void switchFragmentsWithStyle(int frame,Fragment frag) {
 		// 4097 is equal to TRANSIT_FRAGMENT_OPEN in fragmentTransaction and
 		// creates interesting animation
 		FragmentTransaction fragmentTransaction = fragmentManager
 				.beginTransaction();
-		fragmentTransaction.replace(R.id.content_frame, frag).setTransition(
+		fragmentTransaction.replace(frame, frag).setTransition(
 				4097);
 		fragmentTransaction.commit();
 	}
@@ -291,12 +243,12 @@ public class CommonlyUsedUtils {
 	 * @param frag
 	 * @param backStackString
 	 */
-	public void switchFragmentsWithStyle(Fragment frag, String backStackString) {
+	public void switchFragmentsWithStyle(int frame,Fragment frag, String backStackString) {
 		// 4097 is equal to TRANSIT_FRAGMENT_OPEN in fragmentTransaction and
 		// creates interesting animation
 		FragmentTransaction fragmentTransaction = fragmentManager
 				.beginTransaction();
-		fragmentTransaction.replace(R.id.content_frame, frag).setTransition(
+		fragmentTransaction.replace(frame, frag).setTransition(
 				4097);
 		fragmentTransaction.addToBackStack(backStackString);
 		fragmentTransaction.commit();
@@ -383,15 +335,19 @@ public class CommonlyUsedUtils {
 		// Create the AlertDialog object and return it
 		return builder.create();
 	}
+
 	/**
 	 * Refreshes ArrayAdapter with objects given.
+	 * 
 	 * @param aa
 	 * @param objs
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void refreshList(ArrayAdapter aa, ArrayList objs) {
 		try {
-			aa.addAll(objs);
+			for(int i = 0; i < objs.size();i++){
+				aa.add(objs.get(i));
+			}
 			aa.notifyDataSetChanged();
 		} catch (NullPointerException e) {
 			Toast.makeText(mContext,
@@ -399,35 +355,39 @@ public class CommonlyUsedUtils {
 					Toast.LENGTH_SHORT).show();
 		}
 	}
+
 	/**
-	 * This function Finishes the Activity if the back button is pressed in 2 Seconds
+	 * This function Finishes the Activity if the back button is pressed in 2
+	 * Seconds
 	 */
 	public void pressBackButtonTwiceToExit() {
-        if (doubleBackToExitPressedOnce) {
-            ((Activity)mContext).finish();
-            return;
-        }
-        this.doubleBackToExitPressedOnce = true;
-        Toast.makeText(mContext, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
-        new Handler().postDelayed(new Runnable() {
+		if (doubleBackToExitPressedOnce) {
+			((Activity) mContext).finish();
+			return;
+		}
+		this.doubleBackToExitPressedOnce = true;
+		Toast.makeText(mContext, "Please click BACK again to exit",
+				Toast.LENGTH_SHORT).show();
+		new Handler().postDelayed(new Runnable() {
 
-            @Override
-            public void run() {
-             doubleBackToExitPressedOnce=false;   
+			@Override
+			public void run() {
+				doubleBackToExitPressedOnce = false;
 
-            }
-        }, PRESS_BACK_BUTTON_TWICE_TIMER);
-		
+			}
+		}, PRESS_BACK_BUTTON_TWICE_TIMER);
+
 	}
-	
-	
+
+	private String dateFormat;
 
 	// Date Formatting >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 	public String longDateStringStandardTime(Date date) {
 		String dateStr = "";
 		try {
 			dateFormat = "MMM d, yyyy h:mm:ss a";
-			SimpleDateFormat ft = new SimpleDateFormat(dateFormat, Locale.ENGLISH);
+			SimpleDateFormat ft = new SimpleDateFormat(dateFormat,
+					Locale.ENGLISH);
 			dateStr = ft.format(date);
 		} catch (NullPointerException e) {
 			dateStr = "";
@@ -435,17 +395,36 @@ public class CommonlyUsedUtils {
 
 		return dateStr;
 	}
-	
+
 	public String longDateStringMilitaryTime(Date date) {
 		String dateStr = "";
 		try {
 			dateFormat = "MMM d, yyyy HH:mm:ss";
-			SimpleDateFormat ft = new SimpleDateFormat(dateFormat, Locale.ENGLISH);
+			SimpleDateFormat ft = new SimpleDateFormat(dateFormat,
+					Locale.ENGLISH);
 			dateStr = ft.format(date);
 		} catch (NullPointerException e) {
 			dateStr = "";
 		}
 
 		return dateStr;
+	}
+	/**
+	 * Send the View that you would be looking for if it was in tablet configuration. </br></br>
+	 * @Activity ex.</br>
+	 * isTabletByView(findViewById(R.id.content_frame)</br></br>
+	 * @Fragment ex.</br>
+	 * isTabletByView(v.findViewById(R.id.content_frame)**</br></br>
+	 * **v being the view that you inflated to get the views inside the fragment
+	 * 
+	 * @param FrameIdYouAreLookingFor
+	 * @return
+	 */
+	public boolean isTabletByView(View FrameIdYouAreLookingFor){
+		if(FrameIdYouAreLookingFor==null){
+			return false;
+		}else{
+			return true;
+		}
 	}
 }
