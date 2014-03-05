@@ -1,6 +1,8 @@
 CommonlyUsedUtils
 =================
 
+--DEPRECATED--
+
 These are some of the Utils that I find myself writing every single time I write a new application.
 
 This is only a java file that you can copy into your projects.
