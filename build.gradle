@@ -16,4 +16,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:+'
     compile fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
     compile 'com.google.code.gson:gson:2.2.+'
+    compile 'joda-time:joda-time:2.3'
 }
