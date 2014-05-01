@@ -6,6 +6,10 @@ These are some of the Utils that I find myself writing every single time I write
 This is an android studio Android Library Module
 
 
+## Not all Methods listed
+I still need to go in a redo the readme but all of the methods that are listed her are still there. There is just more that I have not gotten around to listing.
+
+
 Contructor:
 ```Java
 public CommonlyUsedUtils(Context cxt) {
