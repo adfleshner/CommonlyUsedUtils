@@ -82,6 +82,7 @@ public class CommonlyUsedUtils {
     private SharedPreferences mPrefs;
     private SharedPreferences.Editor editor;
     private FragmentManager fragmentManager;
+    private String dateFormat;
 
 
     // Get ScreenDimensions >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -209,7 +210,32 @@ public class CommonlyUsedUtils {
         mContext.startActivity(i);
         try {
             ((Activity) mContext).overridePendingTransition(
-                    R.anim.slide_in_right, R.anim.slide_out_left);
+                   R.anim.slide_in_right, R.anim.slide_out_left);
+        } catch (Exception e) {
+
+        }
+    }
+    /**
+     * Goes to the Activity with animation slide in right slide out left if
+     * bundle != null adds bundle plus key to intent.
+     * <p/>
+     * to get bundle from intent be sure to call
+     * getIntent().getBundleExtra(bundleKey) then get whatever from the bundle.
+     *
+     * @param clazz
+     * @param bundle
+     * @param bundleKey
+     */
+    public static void goToActivityWithStyle(Context mContext, Class<?> clazz, Bundle bundle,
+                                      String bundleKey) {
+        Intent i = new Intent(mContext, clazz);
+        if (bundle != null) {
+            i.putExtra(bundleKey, bundle);
+        }
+        mContext.startActivity(i);
+        try {
+            ((Activity) mContext).overridePendingTransition(
+                   R.anim.slide_in_right, R.anim.slide_out_left);
         } catch (Exception e) {
 
         }
@@ -281,6 +307,8 @@ public class CommonlyUsedUtils {
         mContext.startActivity(i);
     }
 
+
+    //Misc.
     private static boolean isAppInstalled(String uri, Context context) {
         PackageManager pm = context.getPackageManager();
         boolean installed = false;
@@ -326,6 +354,33 @@ public class CommonlyUsedUtils {
         fragmentTransaction.addToBackStack(backStackString);
         fragmentTransaction.commit();
     }
+    /**
+     * Switches fragment with adding to back stack;
+     *
+     * @param frag
+     * @param backStackString
+     */
+    public void switchFragmentsWithStyle(int frame, Fragment frag,int enterAnim, int exitAnim,int enterPopAnim, int exitPopAnim, String backStackString) {
+        FragmentTransaction fragmentTransaction = fragmentManager
+                .beginTransaction();
+        fragmentTransaction.replace(frame, frag);
+        fragmentTransaction.setCustomAnimations(enterAnim,exitAnim,enterPopAnim,exitPopAnim);
+        fragmentTransaction.addToBackStack(backStackString);
+        fragmentTransaction.commit();
+    }
+    /**
+     * Switches fragment with adding to back stack;
+     *
+     * @param frag
+     */
+    public void switchFragmentsWithStyle(int frame, Fragment frag,int enterAnim, int exitAnim,int enterPopAnim, int exitPopAnim) {
+        FragmentTransaction fragmentTransaction = fragmentManager
+                .beginTransaction();
+        fragmentTransaction.replace(frame, frag);
+        fragmentTransaction.setCustomAnimations(enterAnim,exitAnim,enterPopAnim,exitPopAnim);
+        fragmentTransaction.commit();
+    }
+
 
     // Keyboard Utils >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -418,11 +473,11 @@ public class CommonlyUsedUtils {
      */
     @SuppressWarnings({"unchecked", "rawtypes"})
     public void refreshArrayAdapterWithNewObjects(ArrayAdapter aa, ArrayList objs, Boolean clearWhatisInAdapter) {
+        if(clearWhatisInAdapter){
+            aa.clear();
+        }
         try {
             for (int i = 0; i < objs.size(); i++) {
-                if(clearWhatisInAdapter){
-                    aa.clear();
-                }
                 aa.add(objs.get(i));
             }
             aa.notifyDataSetChanged();
@@ -457,7 +512,7 @@ public class CommonlyUsedUtils {
 
     }
 
-    private String dateFormat;
+
 
     // Date Formatting >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     public String longDateStringStandardTime(Date date) {
@@ -568,5 +623,4 @@ public class CommonlyUsedUtils {
         }
         return dir.delete();
     }
-
 }
