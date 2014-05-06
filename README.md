@@ -118,9 +118,9 @@ public static String GetTimeInBetween(DateTime start, DateTime end)
 public static DateTime StringToDateTime(String date, String dateFormat)
 
 ```
-
+##CustomViews:
 ```text
-CustomViews:
+
 setup for endless scrolling.
 EndlessScrollingAdapter.java
 a fragment adpater that takes the lifecycles into consideration.
