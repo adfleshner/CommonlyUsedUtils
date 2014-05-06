@@ -120,13 +120,13 @@ public static DateTime StringToDateTime(String date, String dateFormat)
 ```
 
 CustomViews:
-setup for endless scrolling.
-EndlessScrollingAdapter.java
-a fragment adpater that takes the lifecycles into consideration.
-SmartFragmentStatePagerAdapter.java
+setup for endless scrolling.</br>
+EndlessScrollingAdapter.java</br>
+a fragment adpater that takes the lifecycles into consideration.</br>
+SmartFragmentStatePagerAdapter.java</br></br>
 
-Allows for Custom font to be added effortlessly.
-KustomTextView.java 
+Allows for Custom font to be added effortlessly.</br>
+KustomTextView.java</br> 
 
 ##LICENSE
 ----------------------------------------------------------------------------
