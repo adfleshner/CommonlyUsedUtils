@@ -12,6 +12,8 @@ import android.text.InputType;
 import android.view.MotionEvent;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.os.Handler;
+import android.content.Intent;
 
 /**
  * Created by afleshner on 3/5/14.
@@ -71,4 +73,17 @@ public class CommonlyUsedUtilsBeta {
         c.drawCircle(bm.getWidth()/2, bm.getHeight()/2, bm.getWidth()/2, paint);
         return bm;
     }
+    
+    public static void SplashTimer(Activity act, int inMilliSecs, Class whereTo){
+        new Handler().postDelayed(new Runnable(){
+                @Override
+                public void run() {
+                    Intent i = new Intent(act, whereTo);
+                    startActivity(i);
+                    act.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                    act.finish();
+                }
+            },inMilliSecs);
+    }
+    
 }
