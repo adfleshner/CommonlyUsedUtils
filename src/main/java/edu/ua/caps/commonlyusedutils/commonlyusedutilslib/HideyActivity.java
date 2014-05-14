@@ -1,3 +1,8 @@
+
+import android.app.Activity;
+import android.os.Build;
+import android.os.Bundle;
+
 public class HideyActivity extends Activity {
 
     @Override
