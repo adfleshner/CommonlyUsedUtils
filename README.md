@@ -116,6 +116,7 @@ public static Bitmap createACircularImage(Bitmap bm)
 DateTimeUtils.java Note: uses JodaTime to complete.
 public static String GetTimeInBetween(DateTime start, DateTime end)
 public static DateTime StringToDateTime(String date, String dateFormat)
+public static void SplashTimer(Activivty act, int inMilliSecs, Class whereTo)
 
 ```
 ##CustomViews:
