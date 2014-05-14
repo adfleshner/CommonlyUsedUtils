@@ -89,6 +89,13 @@ public String longDateStringMilitaryTime(Date date)
 //Misc. Utils
 public void refreshArrayAdapterWithNewObjects(ArrayAdapter aa, ArrayList objs, Boolean clearWhatisInAdapter)
 public void pressBackButtonTwiceToExit()
+////////////////////////////////////////////////////////////////
+//Usage of utils.pressBackButtonTwiceToExit();
+@Override
+    public void onBackPressed() {
+        utils.pressBackButtonTwiceToExit();
+    }
+////////////////////////////////////////////////////////////////
 public static boolean isTablet(Context context)
 public static boolean isOnline(Context context)
 public String BitmapToBase64(Bitmap bm, Bitmap.CompressFormat format)
