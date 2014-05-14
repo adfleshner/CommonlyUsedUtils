@@ -1,6 +1,6 @@
+package edu.ua.caps.commonlyusedutils.commonlyusedutilslib;
 
-
-
+import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.View;
 
