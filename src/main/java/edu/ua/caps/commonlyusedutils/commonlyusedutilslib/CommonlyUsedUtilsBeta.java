@@ -74,12 +74,12 @@ public class CommonlyUsedUtilsBeta {
         return bm;
     }
     
-    public static void SplashTimer(Activity act, int inMilliSecs, Class whereTo){
+   public static void SplashTimer(final Activity act, int inMilliSecs, final Class whereTo){
         new Handler().postDelayed(new Runnable(){
                 @Override
                 public void run() {
                     Intent i = new Intent(act, whereTo);
-                    startActivity(i);
+                    act.startActivity(i);
                     act.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                     act.finish();
                 }
