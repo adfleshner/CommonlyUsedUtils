@@ -11,7 +11,7 @@ public class HideyActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
-    @TargetApi(11)
+    
     @Override
     public void onWindowFocusChanged(boolean hasfocus) {
         super.onWindowFocusChanged(hasfocus);
