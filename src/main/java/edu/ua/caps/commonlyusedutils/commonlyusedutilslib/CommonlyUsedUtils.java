@@ -587,6 +587,26 @@ public class CommonlyUsedUtils {
             state = activeNetwork.isConnectedOrConnecting();
         return state;
     }
+    
+    /**
+     * Checks if the Android Verison is Lower than or equal to the current Android version specified. 
+     */
+    public static boolean isAndroidVersionLowerThanOrEqualTo(int AndroidVersion){
+        if (Build.VERSION.SDK_INT <= AndroidVersion) {
+            return true;
+        }
+        return false;
+    }
+    
+     /**
+     * Checks if the Android Verison is Higher than or equal to the current Android version specified. 
+     */
+    public static boolean isAndroidVersionHigherThanOrEqualTo(int AndroidVersion){
+        if (Build.VERSION.SDK_INT >= AndroidVersion) {
+            return true;
+        }
+        return false;
+    }
 
 
     // BITMAP PROCESSING >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
