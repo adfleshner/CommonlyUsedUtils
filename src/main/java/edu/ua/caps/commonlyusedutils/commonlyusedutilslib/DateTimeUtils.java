@@ -11,6 +11,86 @@ import org.joda.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class DateTimeUtils {
+    
+    private String TimeFromTodayAccuracyToTheMinute(String date){
+        String Time = "";
+        DateTime StoryTime = new DateTime(date);
+        DateTime NowTime = new DateTime();
+        int minutes = Minutes.minutesBetween(StoryTime, NowTime).getMinutes();
+        int hours = Hours.hoursBetween(StoryTime, NowTime).getHours();
+        int days = Days.daysBetween(StoryTime, NowTime).getDays();
+        if(days > 0){
+            Time  = Time + " " + days + " d";
+        }
+        if(BelowADay(hours) > 0){
+            int timeHours = BelowADay(hours);
+            Time  = Time + " " + timeHours + " h";
+        }
+        if(BelowAHour(minutes) > 0){
+            int timeMins = BelowAHour(minutes);
+            Time  = Time + " " + timeMins + " m";
+        }
+        
+        Time = Time + " ago.";
+        if(Time.length()==5){
+            Time = "less then a minute ago.";
+        }
+        return Time;
+    }
+    
+    private String TimeFromTodayAccuracyToTheHour(String date){
+        String Time = "";
+        DateTime StoryTime = new DateTime(date);
+        DateTime NowTime = new DateTime();
+        int hours = Hours.hoursBetween(StoryTime, NowTime).getHours();
+        int days = Days.daysBetween(StoryTime, NowTime).getDays();
+        if(days > 0){
+            Time  = Time + " " + days + " d";
+        }
+        if(BelowADay(hours) > 0){
+            int timeHours = BelowADay(hours);
+            Time  = Time + " " + timeHours + " h";
+        }
+        Time = Time + " ago.";
+        if(Time.length()==5){
+            Time = "less then a hour ago.";
+        }
+        return Time;
+    }
+    
+    private String TimeFromTodayAccuracyToTheDay(String date){
+        String Time = "";
+        DateTime StoryTime = new DateTime(date);
+        DateTime NowTime = new DateTime();
+        int hours = Hours.hoursBetween(StoryTime, NowTime).getHours();
+        int days = Days.daysBetween(StoryTime, NowTime).getDays();
+        if(days > 0){
+            Time  = Time + " " + days + " d";
+        }
+        Time = Time + " ago.";
+        if(Time.length()==5){
+            Time = "less then a day ago.";
+        }
+        return Time;
+    }
+
+    private int BelowAHour(int minutes) {
+        int temp = minutes;
+        while(temp>=1440){// minus by the day
+            temp = temp-1440;
+        }
+        while(temp>=60){//minus by the hour
+            temp = temp-60;
+        }
+        return temp;
+    }
+    private int BelowADay(int hours) {
+        int temp = hours;
+        while(temp>=24){//minus by the day
+            temp = temp-24;
+        }
+        return temp;
+    }
 
     /**
      * gives time in between the two dates give ( Joda Time lib is needed )
