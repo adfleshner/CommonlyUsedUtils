@@ -5,6 +5,7 @@ import android.support.v7.widget.SearchView;
 import android.view.MenuItem;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
+import android.widget.TextView;
 
 /**
  * Created by afleshner on 3/19/14.
@@ -30,4 +31,15 @@ public class ActionBarUtils {
         editText = (AutoCompleteTextView) sv.findViewById(id);
         return editText;
     }
+    
+    
+    public static TextView getActionBarTitleTextView(Context cxt){
+        int titleId = cxt.getResources().getIdentifier("action_bar_title", "id","android");
+        return (TextView) findViewById(titleId);
+    }
+     public static TextView getActionBarSubTitleTextView(Context cxt){
+        int titleId = cxt.getResources().getIdentifier("action_bar_subtitle", "id","android");
+        return (TextView) findViewById(titleId);
+    }
+    
 }
