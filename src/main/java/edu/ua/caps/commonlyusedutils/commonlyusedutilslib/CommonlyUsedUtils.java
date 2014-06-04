@@ -71,11 +71,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
+import java.util.UUID;
 
 
 public class CommonlyUsedUtils {
 
     private static final long PRESS_BACK_BUTTON_TWICE_TIMER = 2000;
+    private static final String SP_UUID_KEY = "UUID ";
     private boolean doubleBackToExitPressedOnce = false;
 
     private Context mContext;
@@ -134,46 +136,63 @@ public class CommonlyUsedUtils {
         }
     }
 
+    /**
+     * The UniqueAPPId can really be anything It is just there for your convience.
+     * Make it "cat" or "dog" have fun with it. All it does is add some more to the
+     * SharedPrefs keey this is stored in.
+     * @param UniqueAppId
+     * @return
+     */
+    public String createRandomUUID(String UniqueAppId){
+        String tempUUID="";
+        if(mPrefs.contains(SP_UUID_KEY +UniqueAppId)){
+            tempUUID=mPrefs.getString(SP_UUID_KEY +UniqueAppId);
+        }else{
+            tempUUID =UUID.randomUUID().toString();
+            editor.putString(SP_UUID_KEY +UniqueAppId,tempUUID);
+        }
+        return tempUUID;
+    }
 
     // int
-    public void setIntPref(int number) {
-        editor.putInt("int", number);
+    public void setIntPref(String key , int number) {
+        editor.putInt(key, number);
         editor.commit();
     }
 
-    public int getIntPref() {
-        return mPrefs.getInt("int", 0);
+    public int getIntPref(String key) {
+        return mPrefs.getInt(key, 0);
     }
 
     // String
-    public void setStringPref(String string) {
-        editor.putString("string", string);
+    public void setStringPref(String key,String string) {
+        editor.putString( key, string);
         editor.commit();
     }
 
-    public String getStringPref() {
-        return mPrefs.getString("string", "");
+    public String getStringPref(String key) {
+        return mPrefs.getString(key, "");
     }
 
     // boolean
-    public void setBooleanPref(boolean mbool) {
-        editor.putBoolean("bool", mbool);
+    public void setBooleanPref(String key,boolean mbool) {
+        editor.putBoolean(key, mbool);
         editor.commit();
     }
 
-    public boolean getBooleanPref() {
-        return mPrefs.getBoolean("bool", false);
+    public boolean getBooleanPref(String key) {
+        return mPrefs.getBoolean(key, false);
     }
 
     // Custom Object
-    public void setCustomObjectPref(Object obj) {
-        editor.putString("custom obj", new Gson().toJson(obj));
+    public void setCustomObjectPref(String key,Object obj) {
+        editor.putString(key, new Gson().toJson(obj));
         editor.commit();
     }
 
-    public Object getCustomObjectPref() {
+    public Object getCustomObjectPref(String key) {
         try {
-            return new Gson().fromJson(mPrefs.getString("custom obj", ""),
+            return new Gson().fromJson(mPrefs.getString(key, ""),
                     Object.class);
         } catch (NullPointerException e) {
             return null;
