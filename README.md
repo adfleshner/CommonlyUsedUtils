@@ -141,6 +141,30 @@ Allows for Custom font to be added effortlessly.
 KustomTextView.java
 ```
 
+## Parsing Utils
+I have added 4 new functions to the mix for json parsing.
+// File must be in the assest folder.
+// Give the function the context, the fileName/filePath, and the class that you would like the object to be.
+public static Object parseJsonObjectFromFile(Context cxt, String fileName,Class clazz)
+ex. 
+YourClass obj = (YourClass)ParsingUtils.parseJsonObjectFromFile(getActivity(),"JsonFile.json",YourClass.class);
+
+// File must be in the assest folder.
+// Give the function the context, the fileName/filePath, and the class that you would like the object in the ArrayList to be.
+public static Object parseJsonArrayListFromFile(Context cxt, String fileName,Class clazz)
+ex.
+ArrayList<YourClass> objs = (ArrayList<YourClass>)ParsingUtils.parseJsonArrayListFromFile(getActivity(),"JsonFile.json",YourClass.class);
+
+//Same as above but you put the actual Json String in the function in place of the file name.
+public static Object parseJsonObject(Context cxt, String jsonString,Class clazz)
+ex.
+YourClass obj = (YourClass)ParsingUtils.parseJsonArrayListFromFile(getActivity(),"JsonFile.json",YourClass.class);
+
+//Same as above but you put the actual Json String in the function in place of the file name.
+public static Object parseJsonArrayList(Context cxt, String jsonString,Class clazz)
+ArrayList<YourClass> objs = (ArrayList<YourClass>)ParsingUtils.parseJsonArrayList(getActivity(),JsonString,YourClass.class);
+
+
 ##LICENSE
 ----------------------------------------------------------------------------
 
