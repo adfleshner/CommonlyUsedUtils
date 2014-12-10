@@ -161,7 +161,7 @@ ArrayList<YourClass> objs = (ArrayList<YourClass>)ParsingUtils.parseJsonArrayLis
 //Same as above but you put the actual Json String in the function in place of the file name.
 public static Object parseJsonObject(Context cxt, String jsonString,Class clazz)
 //ex.
-YourClass obj = (YourClass)ParsingUtils.parseJsonArrayListFromFile(getActivity(),"JsonFile.json",YourClass.class);
+YourClass obj = (YourClass)ParsingUtils.parseJsonArrayListFromFile(getActivity(),JsonString,YourClass.class);
 
 //Same as above but you put the actual Json String in the function in place of the file name.
 public static Object parseJsonArrayList(Context cxt, String jsonString,Class clazz)
